@@ -1,0 +1,14 @@
+var twoSum = function(nums, target) {
+
+    const complement = {};
+    
+    for(let i = 0; i < nums.length; i++){
+                
+        if(complement[nums[i]] >=0){
+            return [complement[nums[i]],i]
+        }
+        
+        complement[target-nums[i]] = i;
+    }
+    
+};
