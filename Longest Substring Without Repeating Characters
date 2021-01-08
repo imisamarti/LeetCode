@@ -1,0 +1,29 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    
+    let subS = {}; 
+    let answer  = 0,
+        current = 0;  
+    
+    if(s.length<2){
+        return s.length;
+    }
+    
+    for(var i = 0; i<s.length; i++){
+        
+        if(subS[s[i]] == null){
+            current++;
+        } else {
+            current = Math.min(i-subS[s[i]],current+1);
+        }
+        
+        answer = Math.max(answer,current);
+        subS[s[i]] = i; //save the index
+    }
+    
+    return answer;
+        
+};
