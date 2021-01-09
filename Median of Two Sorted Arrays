@@ -1,0 +1,32 @@
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function(nums1, nums2) {
+    //brute force
+    
+    //create an array that will hold all values of arrays (nums1 + nums2)
+    let nums3 = []; 
+    
+    //create a for loop that loops through each element in array1 and put it inside array3
+    for(let i = 0 ; i<nums1.length;i++){
+        nums3.push(nums1[i]);
+    
+    }
+    //create a for loop that loops through each element in array2 and put it inside array3
+    for(let i = 0 ; i<nums2.length;i++){
+        nums3.push(nums2[i]);
+    
+    }
+    
+    //create a function that gets the median of arrays
+    const median = arr => {
+        const mid = Math.floor(arr.length/2);
+        nums = [...arr].sort((a,b) => a-b);
+        return arr.length%2 !==0 ? nums[mid] : (nums[mid-1]+nums[mid])/2;
+    }
+    
+    //apply the function
+    return median(nums3);
+};
