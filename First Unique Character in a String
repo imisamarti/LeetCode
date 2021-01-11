@@ -1,0 +1,20 @@
+var firstUniqChar = function(s) {
+   
+    //we find the index of the char
+    //we set it as the first char, and go through each char
+    //if we don't find another one like it, print the index
+    
+    for(var i =0; i<s.length; i++){
+        
+        //set index of characters with charAt method
+        var char = s.charAt(i);
+        
+        //if we don't find another element like char, print it out
+        if(s.indexOf(char) == i && s.indexOf(char,i+1) == -1){
+           return i;
+        }
+        
+    }
+    
+    return -1;
+};
