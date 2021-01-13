@@ -1,0 +1,33 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var firstUniqChar = function(s) {
+       
+    //create a hashmap to manage the chars and indexes
+    let charHash = {};
+    
+    //for a for loop to check each element in string "s"
+    for(var i = 0; i<s.length; i++){
+        //if the letter in hash Table hasn't been defined before
+        //return true
+        //else if it has been defined return false
+        if(charHash[s[i]] == undefined){
+            charHash[s[i]] = true;
+        } else {
+            charHash[s[i]] = false;
+        }
+    }
+    
+    //do another for loop
+    for(var j = 0; j< s.length; j++){
+        //if the character found in the second loop is equal to true
+        //then return that character
+        if(charHash[s[j]] == true){
+            return j;
+        }
+    }
+    
+    return -1;
+    
+};
