@@ -5,8 +5,8 @@ var BrowserHistory = function(homepage) {
     
     //initialize links in homepage
     this.links = [homepage];
-    //initialize position as 0// here we'll count the moves we make 
-    this.position = 0;
+    //initialize position as 1// here we'll count the moves we make 
+    this.position = 1;
     
 };
 
@@ -16,19 +16,19 @@ var BrowserHistory = function(homepage) {
  */
 BrowserHistory.prototype.visit = function(url) {
     
+    //if the current position is less than the last page visited overall
+    //make the current links array equal the 
+    //sliced links array from the start till for the position+1
+    if(this.position !== this.links.length){ 
+        this.links = this.links.slice(0, this.position);
+    }
+    
     //if you visit a page, add 1 step to the position 
     //because you moved from one page to another
     this.position++;
     //make the current link at the current position equal to the page visited
-    this.links[this.position] = url;
-    
-    //if the current position is less than the last page visited overall
-    //make the current links array equal the 
-    //sliced links array from the start till for the position+1
-    if(this.position < this.length-1){ 
-        this.links = this.links.slice(0, this.position+1);
-    }
-    
+    this.links.push(url)
+        
 };
 
 /** 
@@ -40,14 +40,14 @@ BrowserHistory.prototype.back = function(steps) {
     //if position count minus steps is negative
     //make the current position the homepage
     //else just substract the number of steps from current position
-    if(this.position - steps < 0){
-        this.position = 0;
+    if(this.position - steps-1 < 0){
+        this.position = 1;
     } else {
         this.position -= steps;
     }
     
     //return current link at the # of position
-    return this.links[this.position];
+    return this.links[this.position-1];
 };
 
 /** 
@@ -61,13 +61,13 @@ BrowserHistory.prototype.forward = function(steps) {
     //make the new position equal to the last link visited
     //if not then add the steps to the position count
     if(this.position+steps >= this.links.length){
-         this.position = this.links.length-1;
+         this.position = this.links.length;
     }else{
         this.position += steps;
     }
     
     //return the link at the # of position
-    return this.links[this.position];
+    return this.links[this.position-1];
     
 };
 
