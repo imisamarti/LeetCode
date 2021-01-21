@@ -1,0 +1,103 @@
+/**
+ * @param {number[][]} board
+ * @return {number[][]}
+ */
+var candyCrush = function(board) {
+    
+    return recursiveCrush(board);
+    
+};
+
+function recursiveCrush(board){
+    
+    const toCrush = []
+    
+    let pathsToCrush = new Set()
+    
+    for(let r = 0; r < board.length; r++){
+        for(let c = 0; c< board[r].length; c++){
+            
+            if(board[r][c] === 'X' && pathsToCrush.has(`${r}+${c}`) || board[r][c] === 0) continue
+            
+            pathsToCrush = findCrush(board, r, c, pathsToCrush)
+        }
+    }
+    
+    if(!pathsToCrush.size) return board
+    
+    markXToCrush(pathsToCrush, board) //mark X to crush
+    
+    const columns = createCols(board) //create an array of columns that equals the size of the board
+    const newColumns = eliminateX(columns) //eliminate all the X and unshift 0, creating new columns
+    const newBoard = recreateBoard(newColumns) //recreate the board with the new state
+    return recursiveCrush(newBoard) //calls recursive crush
+}
+
+function markXToCrush(pathsToCrush,board){
+    for(let p of pathsToCrush){
+        const coor = p.split('+')
+        const row = coor[0], col = coor[1]
+        board[row][col] = 'X'
+    }
+}
+
+function findCrush(b, r, c, allPaths){
+    const dir = [[-1,0], [1,0], [0,1], [0,-1]]
+    const curr = b[r][c]
+    for(let [x,y] of dir){
+        let [row, col] = [r,c]
+        const path = new Set()
+        while (row >= 0 && row< b.length && col >= 0 && col < b[row].length && b[row][col] === curr){
+            path.add(`${row}+${col}`)
+            row += x
+            col += y
+        }
+        
+        if(path.size >= 3){
+            allPaths = new Set([...allPaths, ...path])
+        }
+    }
+    
+    return allPaths
+}
+
+function createCols(board){
+    const columns = new Array(board[0].length).fill(0).map(() => new Array(board.length).fill(0));
+    for(let r=0; r<board.length; r++){
+        for(let c=0;c<board[r].length;c++){
+            columns[c][r] = board[r][c]
+        }
+    }
+    return columns
+}
+
+function eliminateX(columns){
+    const newCols = []
+    for(let c of columns){
+        const newC = []
+        const size = c.length
+        for(const p of c){
+            if(p === 'X') continue
+            newC.push(p)
+        }
+        while (newC.length < size){
+            newC.unshift(0)
+        }
+        newCols.push(newC)
+    }
+    return newCols
+}
+
+function recreateBoard(columns){
+    const board = new Array(columns[0].length).fill(0).map((v) => new Array(columns.length))
+    for(let r = 0; r < board.length; r++){
+        for(let c = 0; c < board[r].length; c++){
+            board[r][c] = columns [c][r]
+        }
+    }
+    return board
+}
+
+
+
+
