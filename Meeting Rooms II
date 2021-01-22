@@ -1,0 +1,31 @@
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var findFreeRooms = (rooms, meeting) => {
+    for(let i = 0; i < rooms.length; i++ ){
+        if(rooms[i][1] <= meeting[0]){
+            rooms[i] = meeting;
+            return
+        }
+    }
+    
+    return rooms.push(meeting);
+}
+
+var minMeetingRooms = function(intervals) {
+    
+  intervals.sort((a,b) => {
+      return a[0]-b[0];
+  })
+  
+    const rooms = [];
+    const started = [];
+    
+    for(let i =0; i < intervals.length; i++){
+        const meeting = intervals[i];
+        findFreeRooms(rooms,meeting);
+    }
+    return rooms.length;   
+    
+};
