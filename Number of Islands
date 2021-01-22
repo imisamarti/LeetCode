@@ -1,0 +1,37 @@
+/**
+ * @param {character[][]} grid
+ * @return {number}
+ */
+var numIslands = function(grid) {
+    
+    //implement DFS
+    //Depth first search
+    
+    const callDFS = (i,j) => {
+        if(i < 0 || i >= grid.length || j < 0 || j >= grid[i].length || grid[i][j] === '0') return
+        
+        grid[i][j] = '0';
+        
+        //movement
+        callDFS(i-1, j) //move up
+        callDFS(i+1, j) //move down
+        callDFS(i, j-1) //move left
+        callDFS(i, j+1) //move right
+        
+    }
+    
+    let count = 0;
+    
+    for(let i =0; i < grid.length; i++){
+        
+        for(let j =0; j< grid[i].length; j++){
+            
+            if(grid[i][j] === '1'){
+                count ++;
+                callDFS(i,j);
+            }
+        }
+    }
+    return count;
+    
+};
