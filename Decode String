@@ -1,0 +1,32 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var decodeString = function(s) {
+    
+    let stack = [];
+    let decodedString = '';
+    let curNum = 0;
+    
+    for(const char of s){
+     
+        if(char === '['){
+            stack.push(decodedString);
+            stack.push(curNum);
+            decodedString = "", curNum = 0;
+        } else if( char === ']'){
+            let num = stack.pop();
+            let prev = stack.pop();
+            decodedString = prev + 
+                decodedString.repeat(num);
+        } else if(!isNaN(Number(char))){
+            curNum = curNum*10 + Number(char);
+        } else {
+            decodedString += char;
+        }
+        
+    } 
+    return decodedString;
+              
+    
+};
