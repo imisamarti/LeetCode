@@ -14,32 +14,52 @@
  */
 var flatten = function(head) {
     
+    //use dummy head
+    
+    //if there's no head return null
     if(!head) return null;
     
+   //make a new node called dummy head
+    //fill it with the starting position
+    //then null, then head, then null
     let dummyHead = new Node(0, null, head, null);
     
+    //start a stack with the cuccrent head
     let stack = [head];
+    //add a vari with current and fill it with dummy head
     let current = dummyHead;
     let prev = null;
     
-    while (stack.length != 0){
+    //while the stack length is not 0
+    //make the current variable squal to the popped stack
+    while(stack.length != 0){
         current = stack.pop();
         
-        if(prev) {
+        //if it's euqal to previos (null)
+        if(prev){
+            //then make the previous of 
+            //current equal to previos (null)
             current.prev = prev;
-            prev.next = current;
+            //and the previous.next = current
+            prev.next = current
         }
         
-        if(current.next!= null) stack.push(current.next);
-        if(current.child != null){ //has a child
+        //if the next from current is not equal to null
+        //then push the next from current
+        if(current.next != null) stack.push(current.next)
+        
+        //if the child from current is not null
+        if(current.child != null){
+            //push the current child to stack
             stack.push(current.child);
-            current.child = null; //remove child reference
-        }
+            //remove child reference
+            current.child = null;
+        } //if it has a child
         
         prev = current;
     }
     
     return dummyHead.next;
+    
 };
-
 
