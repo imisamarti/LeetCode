@@ -1,0 +1,37 @@
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+var removeDuplicates = function(s, k) {
+    
+    //use stack
+    //iterate through string
+    //if the letters are unique make stack 1
+    //else add 1 to the count on top of stack
+    
+    //if the top of stack is equal to k
+    //then pop stack
+    //and replace the letters
+    
+    let stack = [];
+    s = s.split('');
+    
+    for(let i = 0; i < s.length; i++){
+        
+        if(i == 0 ||  s[i] !== s[i-1]){
+            stack.push(1);
+        } else {
+            stack[stack.length-1]++;
+        }
+        
+        if(stack[stack.length-1] === k){
+            stack.pop();
+            stack.splice(i - k+1, k);
+            i = i-k;
+        }
+    }
+    
+    return s.join('');
+    
+};
