@@ -4,7 +4,7 @@
  */
 var intToRoman = function(num) {
     
-     const map = { 
+     const roman = { 
          M: 1000, 
          CM: 900, 
          D: 500, 
@@ -21,12 +21,15 @@ var intToRoman = function(num) {
     
     let result = '';
     
-    Object.entries(map).forEach(([letter, n]) => {
+    Object.entries(roman).forEach(([symbol,n]) => {
         
-        result += letter.repeat(Math.floor(num / n));
+        result += symbol.repeat(Math.floor(num/n));
         
-        num %= n;
+        num%=n;
+        
+        
     });
+    
     return result;
     
 };
