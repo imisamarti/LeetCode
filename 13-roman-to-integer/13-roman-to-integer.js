@@ -6,37 +6,35 @@
     
 var romanToInt = function(s) {
     
-    let symbols = { 
-        'I' : 1,
-        'V' : 5,
-        'X' : 10,
-        'L' : 50,
-        'C' : 100,
-        'D' : 500,
-        'M' : 1000,
-        'IV': 4,
-        'IX': 9,
-        'XL': 40,
-        'XC': 90,
-        'CD': 400,
-        'CM': 900,
-                  }
+let roman = {
+    "I": 1,
+    "IV": 4,
+    "V": 5,
+    "VI": 6,
+    "IX": 9,
+    "X": 10,
+    "XL":40,
+    "XC": 90,
+    "L": 50,
+    "CD":400,
+    "CM":900,
+    "C": 100,
+    "D": 500,
+    "M": 1000
+};
     
-    let sum = 0;
+    let result =0;
     
     for(let i =0; i<s.length;i++){
-        const char = s[i];
-        const nextChar = s[i+1];
-       
-        if(symbols.hasOwnProperty(char+nextChar)){
-           sum += symbols[char+nextChar];
-            i++;
-            continue;
-        }
+        let char = s[i];
+        let nextChar = s[i+1];
         
-        sum+=symbols[char]
+        if(roman[char]<roman[nextChar]){
+            result += roman[char+nextChar];
+            ++i;
+        } else result += roman[char]; 
     }
-    
-    return sum;
+
+    return result;
     
 };
